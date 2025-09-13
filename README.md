@@ -372,7 +372,3 @@ If you have any questions or need help, please:
 1. Check the [Issues](https://github.com/AbbasSk2004/Libro-E-Library-Management-System/issues) page
 2. Create a new issue if your problem isn't already reported
 3. Contact the maintainers
-
----
-
-**Made with ❤️ by the Libro Team**
