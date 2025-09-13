@@ -197,10 +197,18 @@ The frontend is designed to work with a backend API. Configure the API base URL 
 
 ### Environment Variables
 
-Create a `.env` file in the root directory:
+The application automatically detects the environment and uses the appropriate API URL:
+
+**Automatic API URL Selection:**
+1. **Environment Variable** (highest priority): If `VITE_API_BASE_URL` is set
+2. **Development Mode**: Uses `http://localhost:5000/api` when running locally
+3. **Production Mode**: Uses `https://libro-e-library-backend.onrender.com/api` when deployed
+
+**Optional Configuration:**
+Create a `.env` file to override the default behavior:
 
 ```env
-# API Configuration
+# API Configuration (optional - overrides automatic detection)
 VITE_API_BASE_URL=http://localhost:5000/api
 
 # Optional: Supabase Configuration (if using direct Supabase)
@@ -283,10 +291,11 @@ Deploy to:
 
 For production deployment, ensure you have:
 
-1. **Environment Variables:**
+1. **Environment Variables (Optional):**
    ```env
-   VITE_API_BASE_URL=https://your-api-domain.com/api
+   VITE_API_BASE_URL=https://libro-e-library-backend.onrender.com/api
    ```
+   **Note:** The app automatically uses the production API when deployed, so this is optional.
 
 2. **CORS Configuration:**
    Ensure your backend API allows requests from your frontend domain.

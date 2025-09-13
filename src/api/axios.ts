@@ -1,6 +1,22 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api' || 'https://libro-e-library-backend.onrender.com/api';
+// API URL configuration with fallback logic
+const getApiBaseUrl = () => {
+  // 1. First priority: Environment variable
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  
+  // 2. Second priority: Localhost for development
+  if (import.meta.env.DEV) {
+    return 'http://localhost:5000/api';
+  }
+  
+  // 3. Third priority: Production API
+  return 'https://libro-e-library-backend.onrender.com/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 const api = axios.create({
   baseURL: API_BASE_URL,
