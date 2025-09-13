@@ -201,8 +201,8 @@ The application automatically selects the appropriate API URL based on the follo
 
 **Priority Order:**
 1. **Environment Variable** (highest priority): If `VITE_API_BASE_URL` is set
-2. **Production Mode**: Uses `https://libro-e-library-backend.onrender.com/api` when built for production
-3. **Development Mode**: Uses `http://localhost:5000/api` when running locally
+2. **Production API** (default): Uses `https://libro-e-library-backend.onrender.com/api` by default
+3. **Local Development** (optional): Only if you create a `.env` file with `VITE_API_BASE_URL=http://localhost:5000/api`
 
 **Optional Configuration:**
 Create a `.env` file to override the automatic detection:
