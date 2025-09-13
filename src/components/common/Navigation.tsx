@@ -27,9 +27,10 @@ const Navigation: React.FC = () => {
           <div className="flex items-center">
             <Link to="/books" className="flex-shrink-0 flex items-center">
               <img 
-                src="./logo.png" 
+                src="/logo.png" 
                 alt="Libro Logo" 
                 className="h-8 w-8 mr-2"
+                loading="lazy"
               />
               <h1 className="text-xl font-bold text-indigo-600">Libro.lb</h1>
             </Link>

@@ -4,10 +4,12 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/',
   build: {
     outDir: 'dist',
     sourcemap: false,
     minify: 'esbuild',
+    assetsDir: 'assets',
     rollupOptions: {
       output: {
         manualChunks: {
@@ -25,5 +27,6 @@ export default defineConfig({
   preview: {
     port: 3000,
     host: true
-  }
+  },
+  publicDir: 'public'
 })
