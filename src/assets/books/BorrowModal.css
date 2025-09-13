@@ -1,0 +1,280 @@
+/* BorrowModal.css - Modern library-style modal */
+
+.borrow-modal-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4;
+  backdrop-filter: blur(4px);
+}
+
+.borrow-modal-container {
+  @apply bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.borrow-modal-header {
+  @apply flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-indigo-600 to-purple-600;
+}
+
+.borrow-modal-title {
+  @apply text-2xl font-bold text-white;
+}
+
+.borrow-modal-close-btn {
+  @apply p-2 rounded-full text-white hover:bg-white hover:bg-opacity-20 transition-colors duration-200;
+}
+
+.borrow-modal-content {
+  @apply p-6 max-h-[calc(90vh-120px)] overflow-y-auto;
+}
+
+/* Book Information Section */
+.book-info-section {
+  @apply mb-8 bg-gray-50 rounded-xl p-6;
+}
+
+.book-info-header {
+  @apply mb-4;
+}
+
+.book-info-title {
+  @apply text-xl font-semibold text-gray-800;
+}
+
+.book-info-content {
+  @apply flex gap-6;
+}
+
+.book-cover-container {
+  @apply flex-shrink-0;
+}
+
+.book-cover-image {
+  @apply w-24 h-32 object-cover rounded-lg shadow-md;
+}
+
+.book-details {
+  @apply flex-1;
+}
+
+.book-title {
+  @apply text-lg font-semibold text-gray-900 mb-2;
+}
+
+.book-author {
+  @apply text-sm text-gray-600 mb-1;
+}
+
+
+.book-year {
+  @apply text-xs text-gray-500;
+}
+
+/* Form Sections */
+.form-section {
+  @apply mb-8;
+}
+
+.form-section-title {
+  @apply text-lg font-semibold text-gray-800 mb-4 flex items-center;
+}
+
+.form-section-title::before {
+  content: '';
+  @apply w-1 h-6 bg-indigo-600 rounded-full mr-3;
+}
+
+.form-description {
+  @apply text-sm text-gray-600 mb-4;
+}
+
+/* Date Inputs */
+.date-inputs {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 mb-6;
+}
+
+.date-input-group {
+  @apply space-y-2;
+}
+
+.date-label {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+.date-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200;
+}
+
+/* Price Calculation */
+.price-calculation {
+  @apply bg-blue-50 rounded-lg p-4 border border-blue-200;
+}
+
+.price-breakdown {
+  @apply space-y-2;
+}
+
+.price-item {
+  @apply flex justify-between items-center text-sm;
+}
+
+.price-label {
+  @apply text-gray-600;
+}
+
+.price-value {
+  @apply font-medium text-gray-900;
+}
+
+.price-total {
+  @apply flex justify-between items-center pt-2 border-t border-blue-200 font-semibold text-base;
+}
+
+.total-label {
+  @apply text-gray-800;
+}
+
+.total-value {
+  @apply text-indigo-600 text-lg;
+}
+
+/* ID Upload Section */
+.id-upload-section {
+  @apply space-y-4;
+}
+
+.file-input {
+  @apply hidden;
+}
+
+.file-upload-label {
+  @apply block w-full p-8 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-indigo-400 hover:bg-indigo-50 transition-colors duration-200;
+}
+
+.upload-content {
+  @apply flex flex-col items-center justify-center text-center;
+}
+
+.upload-icon {
+  @apply w-12 h-12 text-gray-400 mb-4;
+}
+
+.upload-text {
+  @apply text-lg font-medium text-gray-700 mb-2;
+}
+
+.upload-hint {
+  @apply text-sm text-gray-500;
+}
+
+.image-preview {
+  @apply relative bg-gray-100 rounded-lg p-4;
+}
+
+.preview-image {
+  @apply w-full max-w-xs mx-auto rounded-lg shadow-md;
+}
+
+.remove-image-btn {
+  @apply absolute top-2 right-2 px-3 py-1 bg-red-500 text-white text-xs rounded-full hover:bg-red-600 transition-colors duration-200;
+}
+
+/* Notice Section */
+.notice-section {
+  @apply bg-green-50 rounded-lg p-4 border border-green-200 mb-6;
+}
+
+.notice-content {
+  @apply flex items-start gap-3;
+}
+
+.notice-icon {
+  @apply text-2xl flex-shrink-0;
+}
+
+.notice-text {
+  @apply text-sm text-green-800 leading-relaxed;
+}
+
+/* Terms Section */
+.terms-section {
+  @apply bg-yellow-50 rounded-lg p-4 border border-yellow-200;
+}
+
+.terms-content {
+  @apply space-y-3;
+}
+
+.terms-title {
+  @apply text-sm font-semibold text-yellow-800;
+}
+
+.terms-list {
+  @apply text-xs text-yellow-700 space-y-1 list-disc list-inside;
+}
+
+/* Action Buttons */
+.modal-actions {
+  @apply flex gap-4 pt-6 border-t border-gray-200;
+}
+
+.cancel-btn {
+  @apply flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200 font-medium;
+}
+
+.confirm-btn {
+  @apply flex-1 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 font-medium;
+}
+
+.confirm-btn:disabled {
+  @apply text-gray-500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .book-info-content {
+    @apply flex-col;
+  }
+  
+  .book-cover-image {
+    @apply w-20 h-28 mx-auto;
+  }
+  
+  .date-inputs {
+    @apply grid-cols-1;
+  }
+  
+  .modal-actions {
+    @apply flex-col;
+  }
+  
+  .borrow-modal-container {
+    @apply max-w-full mx-4;
+  }
+}
+
+/* Custom scrollbar for modal content */
+.borrow-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.borrow-modal-content::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-full;
+}
+
+.borrow-modal-content::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+.borrow-modal-content::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}

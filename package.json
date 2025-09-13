@@ -1,0 +1,61 @@
+{
+  "name": "libro-elibrary-frontend",
+  "version": "1.0.0",
+  "description": "A modern React + TypeScript frontend for the Libro E-Library management system",
+  "type": "module",
+  "keywords": [
+    "elibrary",
+    "library-management",
+    "react",
+    "typescript",
+    "vite",
+    "tailwindcss",
+    "book-management",
+    "borrowing-system"
+  ],
+  "author": "Libro Team",
+  "license": "MIT",
+  "homepage": "https://github.com/AbbasSk2004/Libro-E-Library-Management-System#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AbbasSk2004/Libro-E-Library-Management-System.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AbbasSk2004/Libro-E-Library-Management-System/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "clean": "rm -rf dist node_modules/.vite",
+    "prebuild": "npm run clean",
+    "postbuild": "echo 'Build completed successfully!'"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "axios": "^1.6.2",
+    "postcss": "^8.4.32",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^6.20.1",
+    "tailwindcss": "^3.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.39.1",
+    "vite": "^7.1.2"
+  }
+}
