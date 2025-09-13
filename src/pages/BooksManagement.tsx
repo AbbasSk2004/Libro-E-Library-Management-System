@@ -78,7 +78,7 @@ const BooksManagement: React.FC = () => {
           formData.append('coverImage', bookData.coverImage as File);
         }
 
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/admin/books`, {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://libro-e-library-backend.onrender.com/api'}/admin/books`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`

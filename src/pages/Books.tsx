@@ -68,7 +68,7 @@ const Books: React.FC = () => {
       formData.append('IdCardImage', idCardImage);
 
       // Call the API with FormData
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/books/${bookId}/borrow`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://libro-e-library-backend.onrender.com/api'}/books/${bookId}/borrow`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`

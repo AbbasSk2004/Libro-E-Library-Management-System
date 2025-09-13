@@ -1,6 +1,17 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 
+// API URL configuration with proper priority
+const getApiBaseUrl = () => {
+  // 1. First priority: Environment variable (if explicitly set)
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  
+  // 2. Second priority: Production API (default for both dev and production)
+  return 'https://libro-e-library-backend.onrender.com/api';
+};
+
 interface User {
   id: number;
   email: string;
@@ -52,7 +63,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsLoading(true);
       
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`${getApiBaseUrl()}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +95,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsLoading(true);
       
-      const response = await fetch('http://localhost:5000/api/auth/register', {
+      const response = await fetch(`${getApiBaseUrl()}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
