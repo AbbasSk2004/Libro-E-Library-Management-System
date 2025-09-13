@@ -11,11 +11,11 @@ const Footer: React.FC = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-4">
-              <img 
-                src="/logo.png" 
-                alt="Libro Logo" 
-                className="h-8 w-8 mr-2"
-              />
+            <img 
+              src="./logo.png" 
+              alt="Libro Logo" 
+              className="h-8 w-8 mr-2"
+            />
               <h3 className="text-xl font-bold text-indigo-600">Libro.lb</h3>
             </div>
             <p className="text-gray-600 text-sm leading-relaxed mb-4">

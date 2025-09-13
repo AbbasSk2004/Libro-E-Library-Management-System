@@ -27,7 +27,7 @@ const Navigation: React.FC = () => {
           <div className="flex items-center">
             <Link to="/books" className="flex-shrink-0 flex items-center">
               <img 
-                src="/logo.png" 
+                src="./logo.png" 
                 alt="Libro Logo" 
                 className="h-8 w-8 mr-2"
               />

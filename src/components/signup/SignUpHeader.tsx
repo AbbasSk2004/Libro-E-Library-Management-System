@@ -5,7 +5,7 @@ const SignUpHeader: React.FC = () => {
     <div>
       <div className="flex justify-center items-center mb-4">
         <img 
-          src="/logo.png" 
+          src="./logo.png" 
           alt="Libro Logo" 
           className="h-12 w-12 mr-3"
         />
