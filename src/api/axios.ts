@@ -1,19 +1,19 @@
 import axios from 'axios';
 
-// API URL configuration with fallback logic
+// API URL configuration with proper priority
 const getApiBaseUrl = () => {
-  // 1. First priority: Environment variable
+  // 1. First priority: Environment variable (if explicitly set)
   if (import.meta.env.VITE_API_BASE_URL) {
     return import.meta.env.VITE_API_BASE_URL;
   }
   
-  // 2. Second priority: Localhost for development
-  if (import.meta.env.DEV) {
-    return 'http://localhost:5000/api';
+  // 2. Second priority: Production API (default for production builds)
+  if (import.meta.env.PROD) {
+    return 'https://libro-e-library-backend.onrender.com/api';
   }
   
-  // 3. Third priority: Production API
-  return 'https://libro-e-library-backend.onrender.com/api';
+  // 3. Third priority: Development API (for local development)
+  return 'http://localhost:5000/api';
 };
 
 const API_BASE_URL = getApiBaseUrl();
