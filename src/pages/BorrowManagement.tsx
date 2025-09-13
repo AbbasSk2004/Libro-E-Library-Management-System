@@ -13,7 +13,6 @@ const BorrowManagement: React.FC = () => {
   const [error, setError] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBorrow, setSelectedBorrow] = useState<AdminBorrowedBook | null>(null);
-  const [statusFilter, setStatusFilter] = useState<string>('all');
 
   useEffect(() => {
     fetchBorrows();

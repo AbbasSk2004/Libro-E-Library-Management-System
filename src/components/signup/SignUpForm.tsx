@@ -24,7 +24,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
   onEmailChange,
   onPasswordChange,
   onConfirmPasswordChange,
-  onSubmit,
+  onSubmit: _onSubmit,
 }) => {
   return (
     <div className="mt-8 space-y-6">
