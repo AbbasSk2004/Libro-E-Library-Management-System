@@ -30,7 +30,6 @@ const Navigation: React.FC = () => {
                 src="/logo.png" 
                 alt="Libro Logo" 
                 className="h-8 w-8 mr-2"
-                loading="lazy"
               />
               <h1 className="text-xl font-bold text-indigo-600">Libro.lb</h1>
             </Link>
