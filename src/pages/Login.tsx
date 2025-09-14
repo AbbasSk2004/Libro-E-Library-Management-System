@@ -42,7 +42,6 @@ const Login: React.FC = () => {
             error={error}
             onEmailChange={setEmail}
             onPasswordChange={setPassword}
-            onSubmit={handleSubmit}
           />
 
           <LoginButton isLoading={isLoading} />

@@ -7,7 +7,6 @@ interface LoginFormProps {
   error: string;
   onEmailChange: (email: string) => void;
   onPasswordChange: (password: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({
@@ -16,7 +15,6 @@ const LoginForm: React.FC<LoginFormProps> = ({
   error,
   onEmailChange,
   onPasswordChange,
-  onSubmit,
 }) => {
   return (
     <div className="space-y-6">
