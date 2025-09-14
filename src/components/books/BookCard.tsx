@@ -8,14 +8,16 @@ interface BookCardProps {
 
 const BookCard: React.FC<BookCardProps> = ({ book, onBorrow }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-1 cursor-pointer group h-full flex flex-col">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-1 cursor-pointer group h-full flex flex-col min-w-0 w-full">
       {book.coverImage && (
-        <div className="overflow-hidden bg-gray-50 flex items-center justify-center">
+        <div className="relative w-full h-48 sm:h-56 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
           <img
             src={book.coverImage}
             alt={book.title}
-            className="w-full h-48 sm:h-56 object-contain transition-transform duration-200 group-hover:scale-105"
+            className="absolute inset-0 w-full h-full object-fill transition-transform duration-300 group-hover:scale-110"
+            loading="lazy"
           />
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
         </div>
       )}
       <div className="p-3 sm:p-4 flex flex-col flex-grow">

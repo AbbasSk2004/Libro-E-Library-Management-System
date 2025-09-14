@@ -1,5 +1,11 @@
 -- E-Library Database Schema for Supabase
 -- This file contains the complete database schema and sample data for the E-Library application
+-- 
+-- Email Verification Features:
+-- - Users must verify their email before accessing the library
+-- - EmailVerifications table stores verification tokens with expiry
+-- - Users table includes IsEmailVerified flag and token fields
+-- - Tokens expire after 24 hours and can only be used once
 
 -- Enable necessary extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -10,6 +16,9 @@ CREATE TABLE IF NOT EXISTS "Users" (
     "Email" VARCHAR(255) UNIQUE NOT NULL,
     "Name" VARCHAR(255) NOT NULL,
     "PasswordHash" TEXT NOT NULL,
+    "IsEmailVerified" BOOLEAN DEFAULT FALSE,
+    "EmailVerificationToken" VARCHAR(500),
+    "EmailVerificationTokenExpires" TIMESTAMP WITH TIME ZONE,
     "CreatedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     "UpdatedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     "Role" VARCHAR(50) NOT NULL DEFAULT 'User'
@@ -61,8 +70,21 @@ CREATE TABLE IF NOT EXISTS "ReturnedBooks" (
     FOREIGN KEY ("BookId") REFERENCES "Books"("Id") ON DELETE CASCADE
 );
 
+-- Create EmailVerifications table
+CREATE TABLE IF NOT EXISTS "EmailVerifications" (
+    "Id" SERIAL PRIMARY KEY,
+    "UserId" INTEGER NOT NULL,
+    "Token" VARCHAR(500) UNIQUE NOT NULL,
+    "ExpiresAt" TIMESTAMP WITH TIME ZONE NOT NULL,
+    "CreatedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    "IsUsed" BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY ("UserId") REFERENCES "Users"("Id") ON DELETE CASCADE
+);
+
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS "idx_users_email" ON "Users"("Email");
+CREATE INDEX IF NOT EXISTS "idx_users_email_verified" ON "Users"("IsEmailVerified");
+CREATE INDEX IF NOT EXISTS "idx_users_email_verification_token" ON "Users"("EmailVerificationToken");
 CREATE INDEX IF NOT EXISTS "idx_books_title" ON "Books"("Title");
 CREATE INDEX IF NOT EXISTS "idx_books_author" ON "Books"("Author");
 CREATE INDEX IF NOT EXISTS "idx_books_category" ON "Books"("Category");
@@ -73,6 +95,10 @@ CREATE INDEX IF NOT EXISTS "idx_borrowed_books_book_id" ON "BorrowedBooks"("Book
 CREATE INDEX IF NOT EXISTS "idx_returned_books_user_id" ON "ReturnedBooks"("UserId");
 CREATE INDEX IF NOT EXISTS "idx_returned_books_book_id" ON "ReturnedBooks"("BookId");
 CREATE INDEX IF NOT EXISTS "idx_returned_books_returned_at" ON "ReturnedBooks"("ReturnedAt");
+CREATE INDEX IF NOT EXISTS "idx_email_verifications_token" ON "EmailVerifications"("Token");
+CREATE INDEX IF NOT EXISTS "idx_email_verifications_user_id" ON "EmailVerifications"("UserId");
+CREATE INDEX IF NOT EXISTS "idx_email_verifications_expires_at" ON "EmailVerifications"("ExpiresAt");
+CREATE INDEX IF NOT EXISTS "idx_email_verifications_is_used" ON "EmailVerifications"("IsUsed");
 
 -- Create function to update UpdatedAt timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -136,6 +162,7 @@ ALTER TABLE "Users" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "Books" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "BorrowedBooks" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "ReturnedBooks" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "EmailVerifications" ENABLE ROW LEVEL SECURITY;
 
 -- Create policies for RLS (adjust based on your authentication needs)
 -- For now, allowing all operations - you should customize these based on your auth setup
@@ -143,6 +170,7 @@ CREATE POLICY "Allow all operations on Users" ON "Users" FOR ALL USING (true);
 CREATE POLICY "Allow all operations on Books" ON "Books" FOR ALL USING (true);
 CREATE POLICY "Allow all operations on BorrowedBooks" ON "BorrowedBooks" FOR ALL USING (true);
 CREATE POLICY "Allow all operations on ReturnedBooks" ON "ReturnedBooks" FOR ALL USING (true);
+CREATE POLICY "Allow all operations on EmailVerifications" ON "EmailVerifications" FOR ALL USING (true);
 
 -- Grant necessary permissions
 GRANT ALL ON ALL TABLES IN SCHEMA public TO postgres;

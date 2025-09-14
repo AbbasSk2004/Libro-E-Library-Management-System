@@ -19,7 +19,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   onSubmit,
 }) => {
   return (
-    <form className="mt-8 space-y-6" onSubmit={onSubmit}>
+    <div className="space-y-6">
       <div className="rounded-md shadow-sm -space-y-px">
         <div>
           <label htmlFor="email" className="sr-only">
@@ -56,7 +56,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
       </div>
 
       {error && <ErrorMessage message={error} />}
-    </form>
+    </div>
   );
 };
 

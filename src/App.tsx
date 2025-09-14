@@ -5,6 +5,7 @@ import Navigation from './components/common/Navigation';
 import Footer from './components/common/Footer';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import VerifyEmail from './pages/VerifyEmail';
 import Books from './pages/Books';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
             <Route
               path="/"
               element={

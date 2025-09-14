@@ -58,8 +58,33 @@ const BooksManagement: React.FC = () => {
   const handleSaveBook = async (bookData: Partial<Book>) => {
     try {
       if (selectedBook) {
-        // Update existing book
-        const updatedBook = await adminApi.updateBook(selectedBook.id, bookData);
+        // Update existing book with form data
+        const formData = new FormData();
+        formData.append('title', bookData.title || selectedBook.title);
+        formData.append('author', bookData.author || selectedBook.author);
+        formData.append('category', bookData.category || selectedBook.category);
+        formData.append('publishedYear', bookData.publishedYear?.toString() || selectedBook.publishedYear.toString());
+        formData.append('description', bookData.description || selectedBook.description);
+        formData.append('numberOfCopies', bookData.numberOfCopies?.toString() || selectedBook.numberOfCopies.toString());
+        
+        if (bookData.coverImage && typeof bookData.coverImage === 'object' && 'name' in bookData.coverImage) {
+          formData.append('coverImage', bookData.coverImage as File);
+        }
+
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://libro-e-library-backend.onrender.com/api'}/admin/books/${selectedBook.id}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+          body: formData
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to update book');
+        }
+
+        const updatedBook = await response.json();
         setBooks(books.map(book => 
           book.id === selectedBook.id ? updatedBook : book
         ));
@@ -72,7 +97,6 @@ const BooksManagement: React.FC = () => {
         formData.append('publishedYear', bookData.publishedYear?.toString() || new Date().getFullYear().toString());
         formData.append('description', bookData.description || '');
         formData.append('numberOfCopies', bookData.numberOfCopies?.toString() || '1');
-        formData.append('available', bookData.available?.toString() || 'true');
         
         if (bookData.coverImage && typeof bookData.coverImage === 'object' && 'name' in bookData.coverImage) {
           formData.append('coverImage', bookData.coverImage as File);

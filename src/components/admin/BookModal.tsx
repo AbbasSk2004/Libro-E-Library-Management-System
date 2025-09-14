@@ -29,6 +29,18 @@ const CATEGORIES = [
   'General'
 ];
 
+// Generate years from 1800 to current year + 1
+const generateYears = () => {
+  const currentYear = new Date().getFullYear();
+  const years = [];
+  for (let year = currentYear + 1; year >= 1800; year--) {
+    years.push(year);
+  }
+  return years;
+};
+
+const PUBLICATION_YEARS = generateYears();
+
 interface BookModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -43,8 +55,7 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, onClose, book, onSave }) 
     category: 'General',
     publicationYear: new Date().getFullYear(),
     description: '',
-    numberOfCopies: 1,
-    available: true
+    numberOfCopies: 1
   });
   const [coverImage, setCoverImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -59,8 +70,7 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, onClose, book, onSave }) 
         category: book.category,
         publicationYear: book.publishedYear,
         description: book.description || '',
-        numberOfCopies: book.numberOfCopies,
-        available: book.available
+        numberOfCopies: book.numberOfCopies
       });
       setImagePreview(book.coverImage || null);
     } else {
@@ -70,8 +80,7 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, onClose, book, onSave }) 
         category: 'General',
         publicationYear: new Date().getFullYear(),
         description: '',
-        numberOfCopies: 1,
-        available: true
+        numberOfCopies: 1
       });
       setImagePreview(null);
     }
@@ -117,7 +126,6 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, onClose, book, onSave }) 
         publishedYear: formData.publicationYear,
         description: formData.description.trim(),
         numberOfCopies: formData.numberOfCopies,
-        available: formData.available,
         coverImage: coverImage || undefined
       };
 
@@ -282,18 +290,21 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, onClose, book, onSave }) 
                 <label htmlFor="publicationYear" className="block text-sm font-medium text-gray-700">
                   Publication Year *
                 </label>
-                <input
-                  type="number"
+                <select
                   name="publicationYear"
                   id="publicationYear"
                   value={formData.publicationYear}
                   onChange={handleChange}
-                  min="1000"
-                  max={new Date().getFullYear() + 1}
                   className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 ${
                     errors.publicationYear ? 'border-red-300' : 'border-gray-300'
                   }`}
-                />
+                >
+                  {PUBLICATION_YEARS.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
                 {errors.publicationYear && (
                   <p className="mt-1 text-sm text-red-600">{errors.publicationYear}</p>
                 )}
@@ -304,35 +315,28 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, onClose, book, onSave }) 
                   Number of Copies *
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   name="numberOfCopies"
                   id="numberOfCopies"
                   value={formData.numberOfCopies}
-                  onChange={handleChange}
-                  min="0"
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Only allow numbers
+                    if (value === '' || /^\d+$/.test(value)) {
+                      setFormData(prev => ({
+                        ...prev,
+                        numberOfCopies: value === '' ? 0 : parseInt(value, 10)
+                      }));
+                    }
+                  }}
                   className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 ${
                     errors.numberOfCopies ? 'border-red-300' : 'border-gray-300'
                   }`}
+                  placeholder="Enter number of copies"
                 />
                 {errors.numberOfCopies && (
                   <p className="mt-1 text-sm text-red-600">{errors.numberOfCopies}</p>
                 )}
-              </div>
-
-              <div>
-                <label htmlFor="available" className="block text-sm font-medium text-gray-700">
-                  Availability
-                </label>
-                <select
-                  name="available"
-                  id="available"
-                  value={formData.available.toString()}
-                  onChange={(e) => setFormData(prev => ({ ...prev, available: e.target.value === 'true' }))}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                >
-                  <option value="true">Available</option>
-                  <option value="false">Not Available</option>
-                </select>
               </div>
             </div>
 

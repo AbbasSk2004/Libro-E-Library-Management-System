@@ -18,7 +18,21 @@ export interface LoginResponse {
     email: string;
     name: string;
     role: string;
+    isEmailVerified: boolean;
   };
+}
+
+export interface EmailVerificationResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface EmailVerificationRequest {
+  token: string;
+}
+
+export interface ResendVerificationRequest {
+  email: string;
 }
 
 export const authApi = {
@@ -27,7 +41,7 @@ export const authApi = {
     return response.data;
   },
 
-  register: async (userData: RegisterRequest): Promise<LoginResponse> => {
+  register: async (userData: RegisterRequest): Promise<EmailVerificationResponse> => {
     const response = await api.post('/auth/register', userData);
     return response.data;
   },
@@ -38,6 +52,16 @@ export const authApi = {
 
   getProfile: async () => {
     const response = await api.get('/auth/profile');
+    return response.data;
+  },
+
+  verifyEmail: async (token: string): Promise<EmailVerificationResponse> => {
+    const response = await api.post('/auth/verify-email', { token });
+    return response.data;
+  },
+
+  resendVerification: async (email: string): Promise<EmailVerificationResponse> => {
+    const response = await api.post('/auth/resend-verification', { email });
     return response.data;
   },
 };

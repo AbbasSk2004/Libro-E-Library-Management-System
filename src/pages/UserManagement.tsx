@@ -65,7 +65,8 @@ const UserManagement: React.FC = () => {
         const updateData: UpdateUserRequest = {
           name: userData.name,
           email: userData.email,
-          role: userData.role
+          role: userData.role,
+          password: (userData as any).password // Include password if provided
         };
         
         const updatedUser = await adminApi.updateUser(selectedUser.id, updateData);

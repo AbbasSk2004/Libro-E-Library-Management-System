@@ -8,8 +8,11 @@ const getApiBaseUrl = () => {
     return import.meta.env.VITE_API_BASE_URL;
   }
   
-  // 2. Second priority: Production API (default for both dev and production)
+  // 2. Second priority: Production API (default for production)
   return 'https://libro-e-library-backend.onrender.com/api';
+  
+  // 3. Third priority: Development API (for local development)
+  // return 'http://localhost:5000/api';
 };
 
 interface User {
@@ -17,13 +20,14 @@ interface User {
   email: string;
   name: string;
   role: string;
+  isEmailVerified: boolean;
 }
 
 interface AuthContextType {
   user: User | null;
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
+  register: (email: string, password: string, name: string) => Promise<{ success: boolean; message: string }>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -103,18 +107,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         body: JSON.stringify({ email, password, name }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Registration failed');
+        throw new Error(data.message || 'Registration failed');
       }
 
-      const data = await response.json();
-      
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      
-      setToken(data.token);
-      setUser(data.user);
+      // Registration successful, but user needs to verify email
+      return { success: data.success, message: data.message };
     } catch (error) {
       console.error('Registration error:', error);
       throw error;
