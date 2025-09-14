@@ -10,11 +10,11 @@ const BookCard: React.FC<BookCardProps> = ({ book, onBorrow }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-1 cursor-pointer group h-full flex flex-col">
       {book.coverImage && (
-        <div className="overflow-hidden">
+        <div className="overflow-hidden bg-gray-50 flex items-center justify-center">
           <img
             src={book.coverImage}
             alt={book.title}
-            className="w-full h-40 sm:h-48 object-cover transition-transform duration-200 group-hover:scale-105"
+            className="w-full h-48 sm:h-56 object-contain transition-transform duration-200 group-hover:scale-105"
           />
         </div>
       )}
