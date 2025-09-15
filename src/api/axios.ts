@@ -8,10 +8,10 @@ const getApiBaseUrl = () => {
   }
   
   // 2. Second priority: Development API (for local development)
-  return 'http://localhost:5000/api';
+  // return 'http://localhost:5000/api';
   
   // 3. Third priority: Production API (default for production)
-  // return 'https://libro-e-library-backend.onrender.com/api';
+  return 'https://libro-e-library-backend.onrender.com/api';
 };
 
 const API_BASE_URL = getApiBaseUrl();
