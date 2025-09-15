@@ -17,8 +17,6 @@ CREATE TABLE IF NOT EXISTS "Users" (
     "Name" VARCHAR(255) NOT NULL,
     "PasswordHash" TEXT NOT NULL,
     "IsEmailVerified" BOOLEAN DEFAULT FALSE,
-    "EmailVerificationToken" VARCHAR(500),
-    "EmailVerificationTokenExpires" TIMESTAMP WITH TIME ZONE,
     "CreatedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     "UpdatedAt" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     "Role" VARCHAR(50) NOT NULL DEFAULT 'User'

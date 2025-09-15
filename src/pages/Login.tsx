@@ -9,12 +9,14 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isEmailVerificationError, setIsEmailVerificationError] = useState(false);
   const { login, isLoading } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setIsEmailVerificationError(false);
 
     try {
       await login(email, password);
@@ -26,7 +28,13 @@ const Login: React.FC = () => {
         navigate('/books');
       }
     } catch (err) {
-      setError('Invalid email or password');
+      const errorMessage = err instanceof Error ? err.message : 'Invalid email or password';
+      setError(errorMessage);
+      
+      // Check if it's specifically an email verification error
+      if (errorMessage.includes('verify your email')) {
+        setIsEmailVerificationError(true);
+      }
     }
   };
 
@@ -46,7 +54,7 @@ const Login: React.FC = () => {
 
           <LoginButton isLoading={isLoading} />
 
-          <div className="text-center">
+          <div className="text-center space-y-2">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
               <Link
@@ -56,6 +64,17 @@ const Login: React.FC = () => {
                 Sign up here
               </Link>
             </p>
+            {isEmailVerificationError && (
+              <p className="text-sm text-gray-600">
+                Need to verify your email?{' '}
+                <Link
+                  to="/verify-email"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Verify email here
+                </Link>
+              </p>
+            )}
           </div>
         </form>
       </div>
